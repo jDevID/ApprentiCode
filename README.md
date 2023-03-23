@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
   </head>
   <body>
-    <h1>ApprentiCode - The Open Source Productivity App</h1>
+    <h1>ApprentiCode - Open Source Productivity App</h1>
     <p>
       Welcome to ApprentiCode, the all-in-one productivity app designed to
       streamline your progress and help you reach your full potential as a
