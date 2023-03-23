@@ -1,0 +1,47 @@
+spring:
+  #profiles:
+    #active: dev
+  data:
+    rest:
+      base-path: /api/
+  datasource:
+    url: jdbc:postgresql://localhost:5432/labo_tic
+    username: postgres
+    password: 1225
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      jakarta:
+        persistence:
+          sharedCache:
+            mode: ALL
+      hibernate:
+        hbm2ddl:
+          auto: create
+        format_sql: true
+        default_schema: public
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+  sql:
+    init:
+      mode: always
+      schema-locations:
+        - classpath:DDL.sql
+      separator: ';'
+server:
+  error:
+    include-message: always
+  servlet:
+    context-path: /api
+logging:
+  level:
+    root: warn
+    org.springframework: warn
+    dev.id: info
+  file:
+    name: spring.log
+    path: /var/log/spring
