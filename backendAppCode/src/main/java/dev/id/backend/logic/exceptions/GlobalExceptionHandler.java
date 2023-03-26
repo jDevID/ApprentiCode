@@ -7,6 +7,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.HttpMediaTypeNotSupportedException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
@@ -103,5 +106,28 @@ public class GlobalExceptionHandler<DTO> {
 
         ResponseDto<Optional<DTO>> responseDto = ResponseUtil.buildResponse(LocalDateTime.now(), httpStatus, e.getMessage(), null, Optional.empty());
         return ResponseEntity.status(httpStatus).body(responseDto);
+    }
+    @ExceptionHandler(UsernameNotFoundException.class)
+    public ResponseEntity<ResponseDto<Optional<DTO>>> handleUsernameNotFoundException(UsernameNotFoundException e, WebRequest request) {
+        log.debug("Username not found: {}", request);
+
+        ResponseDto<Optional<DTO>> responseDto = ResponseUtil.buildResponse(LocalDateTime.now(), HttpStatus.UNAUTHORIZED, e.getMessage(), null, Optional.empty());
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(responseDto);
+    }
+
+    @ExceptionHandler(BadCredentialsException.class)
+    public ResponseEntity<ResponseDto<Optional<DTO>>> handleBadCredentialsException(BadCredentialsException e, WebRequest request) {
+        log.debug("Bad credentials: {}", request);
+
+        ResponseDto<Optional<DTO>> responseDto = ResponseUtil.buildResponse(LocalDateTime.now(), HttpStatus.UNAUTHORIZED, e.getMessage(), null, Optional.empty());
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(responseDto);
+    }
+
+    @ExceptionHandler(AccessDeniedException.class)
+    public ResponseEntity<ResponseDto<Optional<DTO>>> handleAccessDeniedException(AccessDeniedException e, WebRequest request) {
+        log.debug("Access denied: {}", request);
+
+        ResponseDto<Optional<DTO>> responseDto = ResponseUtil.buildResponse(LocalDateTime.now(), HttpStatus.FORBIDDEN, e.getMessage(), null, Optional.empty());
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(responseDto);
     }
 }
