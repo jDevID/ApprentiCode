@@ -16,4 +16,5 @@ public interface BaseService<T, D, ID extends Serializable> {
     T update(ID id, D dto);
     boolean deleteById(ID id);
     List<D> list(int limit);
+    Page<D> search(String searchFilter, String tagName, String complexityName, String command, Boolean active, Long projectId, Pageable pageable);
 }

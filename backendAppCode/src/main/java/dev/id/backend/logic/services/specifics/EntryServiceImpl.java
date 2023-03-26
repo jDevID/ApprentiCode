@@ -38,8 +38,7 @@ public class EntryServiceImpl extends BaseServiceImpl<Entry, EntryDto, Long, Ent
         this.tagRepository = tagRepository;
     }
 
-    public Page<EntryDto> search(String searchFilter, String tagName, String complexityName, String command, Boolean active, Long projectId, Pageable pageable) {
-        List<SearchCriteria> searchCriteria = SearchCriteriaParser.parse(searchFilter);
+    public Page<EntryDto> search(String searchFilter, String tagName, String complexityName, String command, Boolean active, Long projectId, Pageable pageable) {        List<SearchCriteria> searchCriteria = SearchCriteriaParser.parse(searchFilter);
 
         Specification<Entry> combinedSpec = SpecificationUtil.createSpecificationFromCriteria(searchCriteria);
         if (tagName != null) combinedSpec = combinedSpec.and(EntrySpecification.hasTag(tagName));
