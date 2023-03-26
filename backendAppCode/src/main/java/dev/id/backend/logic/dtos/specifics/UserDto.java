@@ -2,7 +2,10 @@ package dev.id.backend.logic.dtos.specifics;
 
 import dev.id.backend.logic.dtos.BaseDto;
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.*;
+import dev.id.backend.logic.security.models.entity.Role;
 
 import java.io.Serializable;
 import java.util.List;
@@ -13,12 +16,22 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@SuppressWarnings("unused") // TODO: SECURITY ALONG ANGULAR
 public class UserDto extends BaseDto implements Serializable {
-    private String username;
+    @NotBlank
+    @Size(min = 2, max = 50)
+    private String firstname;
+
+    @NotBlank
+    @Size(min = 2, max = 50)
+    private String lastname;
+
     @Email
+    @NotBlank
     private String email;
+
     private String password;
-    private String role;
+
+    private Role role;
+
     private List<ProjectDto> projects;
 }
