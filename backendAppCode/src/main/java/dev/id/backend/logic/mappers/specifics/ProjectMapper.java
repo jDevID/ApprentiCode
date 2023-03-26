@@ -6,6 +6,7 @@ import dev.id.backend.logic.mappers.BaseMapper;
 import org.mapstruct.Mapper;
 
 
-@Mapper(componentModel = "spring", uses = ComplexityMapper.class)
+@Mapper(componentModel = "spring")
 public interface ProjectMapper extends BaseMapper<ProjectDto, Project> {
+
 }

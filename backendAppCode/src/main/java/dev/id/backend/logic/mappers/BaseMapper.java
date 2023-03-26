@@ -1,5 +1,7 @@
 package dev.id.backend.logic.mappers;
 
+import org.mapstruct.MappingTarget;
+
 import java.util.List;
 
 public interface BaseMapper<D, T> {
@@ -7,4 +9,5 @@ public interface BaseMapper<D, T> {
     D toDTO(T entity);
     List<T> fromDTOList(List<D> dtos);
     List<D> toDTOList(List<T> entities);
+    void updateEntity(T source, @MappingTarget T target);
 }
