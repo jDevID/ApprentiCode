@@ -1,0 +1,21 @@
+Role enum: This defines the user roles (USER and ADMIN) and implements the GrantedAuthority interface.
+
+    SecurityUtil: A utility class for hashing passwords using PBKDF2WithHmacSHA512 and generating a salt.
+
+    RequestContextUtil: A utility class for getting the user ID from the request header.
+
+    AuthenticationService: A service class for handling user registration and authentication, which utilizes the UserRepository, PasswordEncoder, JwtService, and AuthenticationManager.
+
+    UserRepository: A JPA repository for user entities.
+
+    AuthenticationResponse, RegisterRequest, and AuthenticationRequest: DTOs (Data Transfer Objects) for handling authentication and registration requests and responses.
+
+    AuthenticationController: A REST controller for handling /api/v1/auth/register and /api/v1/auth/authenticate endpoints.
+
+    SecurityConfiguration: A configuration class for setting up Spring Security, including the JwtAuthenticationFilter and the AuthenticationProvider.
+
+    ApplicationConfig: A configuration class for providing beans for the UserDetailsService, AuthenticationProvider, PasswordEncoder, and AuthenticationManager.
+
+    JwtService: A service class for handling JWT generation, extraction, and validation.
+
+    JwtAuthenticationFilter: A filter for checking and processing JWT tokens in incoming HTTP requests.
