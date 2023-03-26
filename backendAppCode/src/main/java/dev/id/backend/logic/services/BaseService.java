@@ -15,4 +15,5 @@ public interface BaseService<T, D, ID extends Serializable> {
     Optional<T> findById(ID id);
     T update(ID id, D dto);
     boolean deleteById(ID id);
-    List<D> list(int limit);}
+    List<D> list(int limit);
+}

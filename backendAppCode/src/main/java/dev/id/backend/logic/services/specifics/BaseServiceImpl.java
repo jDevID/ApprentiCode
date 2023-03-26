@@ -6,11 +6,14 @@ import dev.id.backend.logic.mappers.BaseMapper;
 import dev.id.backend.logic.services.BaseService;
 import dev.id.backend.logic.specs.GenericSpecification;
 import dev.id.backend.logic.specs.SearchCriteria;
+import dev.id.backend.logic.utils.IdUtil;
 import dev.id.backend.logic.utils.SearchCriteriaParser;
+import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
 import java.io.Serializable;
@@ -19,24 +22,24 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Slf4j
-public abstract class BaseServiceImpl<T, D extends Serializable, ID extends Serializable, M> implements BaseService<T, D, ID> {
+public abstract class BaseServiceImpl<T, D extends Serializable, ID extends Serializable, M extends BaseMapper<D, T>> implements BaseService<T, D, ID> {
     protected final BaseRepository<T, ID> repository;
-    private final BaseMapper<D, T> mapper;
+    protected final M mapper;
     private final EntityValidator<D> validator;
+    protected final IdUtil.IdGetter<T, ID> idGetter;
+    protected final IdUtil.IdSetter<T, ID> idSetter;
 
-    protected BaseServiceImpl(BaseRepository<T, ID> repository, BaseMapper<D, T> mapper, EntityValidator<D> validator) {
+    protected BaseServiceImpl(BaseRepository<T, ID> repository, M mapper, EntityValidator<D> validator, IdUtil.IdGetter<T, ID> idGetter, IdUtil.IdSetter<T, ID> idSetter) {
         this.repository = repository;
         this.mapper = mapper;
         this.validator = validator;
+        this.idGetter = idGetter;
+        this.idSetter = idSetter;
     }
 
     private GenericSpecification<T> buildSpecification(List<SearchCriteria> criteriaList) {
         GenericSpecification<T> spec = new GenericSpecification<>();
-
-        for (SearchCriteria criteria : criteriaList) {
-            spec.add(criteria);
-        }
-
+        criteriaList.forEach(spec::add);
         return spec;
     }
 
@@ -74,9 +77,22 @@ public abstract class BaseServiceImpl<T, D extends Serializable, ID extends Seri
         T existingEntity = repository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Entity not found with id: " + id));
         T updatedEntity = mapper.fromDTO(dto);
-        setId(updatedEntity, getId(existingEntity));
+
+        ID updatedId = idGetter.getId(updatedEntity);
+        if (!updatedId.equals(idGetter.getId(existingEntity))) {
+            // Check if new ID unique
+            if (repository.existsById(updatedId)) {
+                throw new EntityExistsException("Entity with updated id: " + updatedId + " already exists.");
+            }
+            idSetter.setId(existingEntity, updatedId);
+        }
         log.debug("Updating entity with id {}: {}", id, dto);
-        return repository.save(updatedEntity);
+
+        // single responsibility principle
+        // convert/update entity
+        mapper.updateEntity(updatedEntity, existingEntity);
+        // works on DB
+        return repository.save(existingEntity);
     }
 
     @Override
@@ -89,17 +105,11 @@ public abstract class BaseServiceImpl<T, D extends Serializable, ID extends Seri
     @Override
     public List<D> list(int limit) {
         log.debug("Listing entities with limit: {}", limit);
-        return repository.findAll().stream()
-                .limit(limit)
+        PageRequest pageable = PageRequest.of(0, limit);
+        Page<T> page = repository.findAll(pageable);
+        return page.stream()
                 .map(mapper::toDTO)
                 .collect(Collectors.toList());
     }
 
-    protected abstract T fromDTO(D dto);
-
-    protected abstract D toDTO(T entity);
-
-    protected abstract ID getId(T entity);
-
-    protected abstract void setId(T entity, ID id);
 }
