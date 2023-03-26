@@ -1,6 +1,7 @@
 package dev.id.backend.logic.security.service;
 
 import dev.id.backend.logic.security.models.entity.Role;
+import dev.id.backend.logic.security.repository.PermissionRepository;
 import dev.id.backend.logic.security.repository.RoleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

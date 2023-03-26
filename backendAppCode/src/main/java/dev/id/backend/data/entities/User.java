@@ -18,7 +18,6 @@ import java.util.Objects;
 @Getter
 @Setter
 @ToString
-@RequiredArgsConstructor
 @Builder
 @NoArgsConstructor @AllArgsConstructor
 @Table(name = "_user") //postgres already allocates a User Table
