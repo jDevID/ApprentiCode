@@ -1,10 +1,9 @@
 package dev.id.backend.logic.security.controller;
 
-import dev.id.backend.logic.security.models.dtos.CreateRoleDto;
+import dev.id.backend.logic.security.models.dtos.RoleCreateDto;
 import dev.id.backend.logic.security.models.dtos.RoleDetailsDto;
-import dev.id.backend.logic.security.models.dtos.UpdateRoleDto;
-import dev.id.backend.logic.security.models.entity.Role;
-import dev.id.backend.logic.security.service.RoleService;
+import dev.id.backend.logic.security.models.dtos.RoleUpdateDto;
+import dev.id.backend.logic.security.services.RoleService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -32,12 +31,13 @@ public class RoleController {
     }
 
     @PostMapping
-    public ResponseEntity<RoleDetailsDto> createRole(@Valid @RequestBody CreateRoleDto createRoleDto) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(roleService.createRole(role));
+    public ResponseEntity<RoleDetailsDto> createRole(@Valid @RequestBody RoleCreateDto roleCreateDto) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(roleService.createRole(roleCreateDto));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<RoleDetailsDto> updateRole(@PathVariable String id, @Valid @RequestBody UpdateRoleDto updateRoleDto) {        return roleService.updateRole(id, updatedRoleDto)
+    public ResponseEntity<RoleDetailsDto> updateRole(@PathVariable String id, @Valid @RequestBody RoleUpdateDto roleUpdateDto) {
+        return roleService.updateRole(id, roleUpdateDto)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }

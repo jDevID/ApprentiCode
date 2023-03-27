@@ -1,10 +1,10 @@
 package dev.id.backend.logic.security.controller;
 
 
-import dev.id.backend.logic.security.models.request.AuthenticationRequest;
-import dev.id.backend.logic.security.models.request.RegisterRequest;
+import dev.id.backend.logic.security.models.requests.AuthenticationRequest;
+import dev.id.backend.logic.security.models.requests.RegisterRequest;
 import dev.id.backend.logic.security.models.response.AuthenticationResponse;
-import dev.id.backend.logic.security.service.AuthenticationService;
+import dev.id.backend.logic.security.services.AuthenticationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
