@@ -1,5 +1,6 @@
 package dev.id.backend.logic.security.config.jwt;
 
+import dev.id.backend.logic.security.utils.ContextRequestUtil;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -21,6 +22,7 @@ import java.io.IOException;
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private final dev.id.backend.logic.security.config.jwt.JwtService jwtService;
     private final UserDetailsService userDetailsService; // this to check if user in DB inside internalFilter
+    private final ContextRequestUtil requestContextUtil;
 
     @Override
     protected void doFilterInternal(
@@ -55,8 +57,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 );
                 authToken.setDetails(
                     new WebAuthenticationDetailsSource().buildDetails(request) // WebAuthenticationDetailsSource not existing in Spring 3.0.2
-                ); // FINAL STEP: update Security Context Holder
+                );
+                // FINAL STEP: update Security Context Holder
                 SecurityContextHolder.getContext().setAuthentication(authToken);
+                requestContextUtil.setUserId(userDetails.getUsername());
             }
         } // always calling filterChain.doFilter(), pass to next filter to be executed
         filterChain.doFilter(request, response);
