@@ -1,9 +1,8 @@
-package dev.id.backend.logic.services.specifics;
+package dev.id.backend.logic.services;
 
 import dev.id.backend.data.repositories.BaseRepository;
 import dev.id.backend.data.validation.EntityValidator;
 import dev.id.backend.logic.mappers.BaseMapper;
-import dev.id.backend.logic.services.BaseService;
 import dev.id.backend.logic.specs.GenericSpecification;
 import dev.id.backend.logic.specs.SearchCriteria;
 import dev.id.backend.logic.utils.IdUtil;
@@ -37,10 +36,8 @@ public abstract class BaseServiceImpl<T, D extends Serializable, ID extends Seri
         this.idSetter = idSetter;
     }
 
-    private GenericSpecification<T> buildSpecification(List<SearchCriteria> criteriaList) {
-        GenericSpecification<T> spec = new GenericSpecification<>();
-        criteriaList.forEach(spec::add);
-        return spec;
+    protected GenericSpecification<T> buildSpecification(List<SearchCriteria> criteriaList) {
+        return new GenericSpecification<>(criteriaList);
     }
 
     @Cacheable("devCache")
