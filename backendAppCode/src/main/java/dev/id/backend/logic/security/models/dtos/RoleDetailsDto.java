@@ -8,5 +8,6 @@ import java.util.Set;
 public class RoleDetailsDto {
     private String id;
     private String name;
-    private Set<String> permissionNames;
+    private String description;
+    private Set<Long> permissionIds;
 }

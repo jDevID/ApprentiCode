@@ -5,7 +5,8 @@ import lombok.Data;
 import java.util.Set;
 
 @Data
-public class UpdateRoleDto {
+public class RoleUpdateDto {
     private String name;
-    private Set<String> permissionNames;
+    private String description;
+    private Set<Long> permissionIds;
 }
