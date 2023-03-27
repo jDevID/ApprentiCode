@@ -5,7 +5,7 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.*;
-import dev.id.backend.logic.security.models.entity.Role;
+import dev.id.backend.logic.security.models.entities.Role;
 
 import java.io.Serializable;
 import java.util.List;
