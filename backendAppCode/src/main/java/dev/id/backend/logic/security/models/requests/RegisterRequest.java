@@ -1,4 +1,4 @@
-package dev.id.backend.logic.security.models.request;
+package dev.id.backend.logic.security.models.requests;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -7,7 +7,10 @@ import lombok.NoArgsConstructor;
 
 @Data @Builder
 @NoArgsConstructor @AllArgsConstructor
-public class AuthenticationRequest {
+public class RegisterRequest {
+    private String firstname;
+    private String lastname;
     private String email;
-    String password;
+    private String password;
+
 }
