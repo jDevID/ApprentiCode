@@ -1,4 +1,4 @@
-package dev.id.backend.logic.security.controller;
+package dev.id.backend.logic.security.controllers;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

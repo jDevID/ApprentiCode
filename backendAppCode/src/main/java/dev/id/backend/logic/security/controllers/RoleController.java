@@ -1,4 +1,4 @@
-package dev.id.backend.logic.security.controller;
+package dev.id.backend.logic.security.controllers;
 
 import dev.id.backend.logic.security.models.dtos.RoleCreateDto;
 import dev.id.backend.logic.security.models.dtos.RoleDetailsDto;
