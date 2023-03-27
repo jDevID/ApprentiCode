@@ -1,0 +1,9 @@
+HATEOAS, short for Hypermedia as the Engine of Application State, is a constraint of RESTful web services that says a client interacts with a RESTful API entirely through hypermedia, not through out-of-band information such as documentation or a static URL. It means that the API will provide the client with all the information needed to interact with it, through the links returned with each resource.
+
+For example, consider an API for a blog platform. The API returns a list of articles, each with a self link and several other links for operations like updating, deleting or viewing comments for the article. The client uses these links to navigate the API, instead of constructing the URLs itself.
+
+STACK OVERFLOW:
+    => https://stackoverflow.com/questions/20335967/how-useful-important-is-rest-hateoas-maturity-level-3
+
+3 MATURITY LEVELS:
+    => https://developers.redhat.com/blog/2017/09/13/know-how-restful-your-api-is-an-overview-of-the-richardson-maturity-model#:~:text=As%20the%20name%20itself%20suggests,as%20high%20as%20Level%203.
