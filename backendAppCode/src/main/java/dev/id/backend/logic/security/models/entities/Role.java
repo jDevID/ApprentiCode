@@ -1,12 +1,15 @@
 package dev.id.backend.logic.security.models.entities;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Set;
 
 @Entity
-@Data
+@Data @AllArgsConstructor
+@NoArgsConstructor
 public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,12 +23,6 @@ public class Role {
             inverseJoinColumns = @JoinColumn(name = "permission_id"))
     private Set<Permission> permissions;
 
-     public Role(Long id, String name, String description, Set<Permission> permissions) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.permissions = permissions;
-    }
 
     @ManyToOne
     @JoinColumn(name = "user_id")
