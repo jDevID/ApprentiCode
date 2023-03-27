@@ -4,6 +4,7 @@ import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
+import lombok.NonNull;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.lang.Nullable;
 
@@ -12,10 +13,6 @@ import java.util.List;
 
 public class GenericSpecification<T> implements Specification<T> {
     private final List<SearchCriteria> list;
-
-    public GenericSpecification() {
-        this.list = new ArrayList<>();
-    }
 
     public GenericSpecification(List<SearchCriteria> criteriaList) {
         this.list = criteriaList != null ? criteriaList : new ArrayList<>();
@@ -27,7 +24,7 @@ public class GenericSpecification<T> implements Specification<T> {
 
     @Override
     @Nullable
-    public Predicate toPredicate(Root<T> root, CriteriaQuery<?> query, CriteriaBuilder builder) {
+    public Predicate toPredicate(@NonNull Root<T> root,@NonNull  CriteriaQuery<?> query,@NonNull  CriteriaBuilder builder) {
 
         List<Predicate> predicates = new ArrayList<>();
 
