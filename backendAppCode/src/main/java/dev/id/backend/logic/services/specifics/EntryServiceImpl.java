@@ -1,15 +1,17 @@
 package dev.id.backend.logic.services.specifics;
 
+import dev.id.backend.data.entities.Complexity;
 import dev.id.backend.data.entities.Entry;
 import dev.id.backend.data.repositories.ComplexityRepository;
 import dev.id.backend.data.repositories.EntryRepository;
 import dev.id.backend.data.repositories.TagRepository;
 import dev.id.backend.logic.dtos.specifics.EntryDto;
 import dev.id.backend.logic.mappers.specifics.EntryMapper;
+import dev.id.backend.logic.services.BaseServiceImpl;
+import dev.id.backend.logic.specs.GenericSpecification;
 import dev.id.backend.logic.specs.SearchCriteria;
 import dev.id.backend.logic.specs.specifics.EntrySpecification;
 import dev.id.backend.logic.utils.SearchCriteriaParser;
-import dev.id.backend.logic.utils.SpecificationUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -38,9 +40,13 @@ public class EntryServiceImpl extends BaseServiceImpl<Entry, EntryDto, Long, Ent
         this.tagRepository = tagRepository;
     }
 
+    protected GenericSpecification<Entry> buildComplexitySpecification(List<SearchCriteria> criteriaList) {
+        return new GenericSpecification<>(criteriaList);
+    }
+
     public Page<EntryDto> search(String searchFilter, String tagName, String complexityName, String command, Boolean active, Long projectId, Pageable pageable) {        List<SearchCriteria> searchCriteria = SearchCriteriaParser.parse(searchFilter);
 
-        Specification<Entry> combinedSpec = SpecificationUtil.createSpecificationFromCriteria(searchCriteria);
+        Specification<Entry> combinedSpec = createSpecificationFromCriteria(searchCriteria);
         if (tagName != null) combinedSpec = combinedSpec.and(EntrySpecification.hasTag(tagName));
         if (complexityName != null) combinedSpec = combinedSpec.and(EntrySpecification.hasComplexity(complexityName));
         if (command != null) combinedSpec = combinedSpec.and(EntrySpecification.hasCommandLike(command));
@@ -60,6 +66,5 @@ public class EntryServiceImpl extends BaseServiceImpl<Entry, EntryDto, Long, Ent
                 .map(entryMapper::toDTO)
                 .collect(Collectors.toList());
     }
-
 
 }

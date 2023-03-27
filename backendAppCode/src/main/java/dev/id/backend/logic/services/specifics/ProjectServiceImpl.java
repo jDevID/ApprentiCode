@@ -12,9 +12,10 @@ import dev.id.backend.logic.dtos.specifics.ResourceDto;
 import dev.id.backend.logic.mappers.specifics.ComplexityMapper;
 import dev.id.backend.logic.mappers.specifics.ProjectMapper;
 import dev.id.backend.logic.mappers.specifics.ResourceMapper;
+import dev.id.backend.logic.services.BaseServiceImpl;
+import dev.id.backend.logic.specs.GenericSpecification;
 import dev.id.backend.logic.specs.SearchCriteria;
 import dev.id.backend.logic.specs.SearchOperation;
-import dev.id.backend.logic.utils.SpecificationUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -51,6 +52,39 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project, ProjectDto, Lon
         this.resourceMapper = resourceMapper;
     }
 
+    protected GenericSpecification<Complexity> buildComplexitySpecification(List<SearchCriteria> criteriaList) {
+        return new GenericSpecification<>(criteriaList);
+    }
+
+    @Override
+    public Page<ProjectDto> search(String searchFilter, String tagName, String complexityName, String command, Boolean active, Long projectId, Pageable pageable) {
+        List<SearchCriteria> criteriaList = new ArrayList<>();
+
+        if (searchFilter != null) {
+            criteriaList.add(new SearchCriteria("searchFilter", SearchOperation.LIKE, searchFilter));
+        }
+        if (tagName != null) {
+            criteriaList.add(new SearchCriteria("tagName", SearchOperation.LIKE, tagName));
+        }
+        if (complexityName != null) {
+            criteriaList.add(new SearchCriteria("complexityName", SearchOperation.LIKE, complexityName));
+        }
+        if (command != null) {
+            criteriaList.add(new SearchCriteria("command", SearchOperation.LIKE, command));
+        }
+        if (active != null) {
+            criteriaList.add(new SearchCriteria("active", SearchOperation.EQUALITY, active));
+        }
+        if (projectId != null) {
+            criteriaList.add(new SearchCriteria("projectId", SearchOperation.EQUALITY, projectId));
+        }
+
+        Specification<Project> spec = new GenericSpecification<>(criteriaList);
+
+
+        Page<Project> projectPage = repository.findAll(spec, pageable);
+        return projectPage.map(projectMapper::toDTO);
+    }
 
     public ComplexityDto updateComplexityInProject(Long projectId, Long complexityId, ComplexityDto complexityDto) {
         Project project = getProject(projectId);
@@ -61,7 +95,6 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project, ProjectDto, Lon
         return complexityMapper.toDTO(updatedComplexity);
     }
 
-
     @Override
     public List<ProjectDto> list(int limit) {
         PageRequest pageable = PageRequest.of(0, limit);
@@ -69,11 +102,6 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project, ProjectDto, Lon
         return projects.stream()
                 .map(mapper::toDTO)
                 .collect(Collectors.toList());
-    }
-
-    @Override
-    public Page<ProjectDto> search(String searchFilter, String tagName, String complexityName, String command, Boolean active, Long projectId, Pageable pageable) {
-        // add implementation here
     }
 
     public Complexity addComplexityToProject(Long projectId, Complexity complexity) {
@@ -91,7 +119,7 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project, ProjectDto, Lon
             criteriaList.add(new SearchCriteria("name", SearchOperation.LIKE, name.toLowerCase()));
         }
 
-        Specification<Complexity> spec = SpecificationUtil.createSpecificationFromCriteria(criteriaList);
+        GenericSpecification<Complexity> spec = buildComplexitySpecification(criteriaList);
         return complexityRepository.findAll(spec);
     }
 
@@ -103,7 +131,7 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project, ProjectDto, Lon
             criteriaList.add(new SearchCriteria("project.name", SearchOperation.LIKE, name.toLowerCase()));
         }
 
-        Specification<Complexity> spec = SpecificationUtil.createSpecificationFromCriteria(criteriaList);
+        GenericSpecification<Complexity> spec = buildComplexitySpecification(criteriaList);
         Complexity complexity = complexityRepository.findOne(spec).orElseThrow(() -> new ResourceNotFoundException("Complexity not found"));
         return complexity.getProject();
     }
