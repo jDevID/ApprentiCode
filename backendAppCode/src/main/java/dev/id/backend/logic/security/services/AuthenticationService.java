@@ -1,11 +1,11 @@
-package dev.id.backend.logic.security.service;
+package dev.id.backend.logic.security.services;
 
-import dev.id.backend.logic.security.models.entity.Role;
+import dev.id.backend.logic.security.models.entities.Role;
 import dev.id.backend.logic.security.config.jwt.JwtService;
-import dev.id.backend.logic.security.models.request.AuthenticationRequest;
-import dev.id.backend.logic.security.models.request.RegisterRequest;
+import dev.id.backend.logic.security.models.requests.AuthenticationRequest;
+import dev.id.backend.logic.security.models.requests.RegisterRequest;
 import dev.id.backend.logic.security.models.response.AuthenticationResponse;
-import dev.id.backend.logic.security.repository.UserRepository;
+import dev.id.backend.logic.security.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;

@@ -1,4 +1,4 @@
-package dev.id.backend.logic.security.repository;
+package dev.id.backend.logic.security.repositories;
 
 import dev.id.backend.data.repositories.BaseRepository;
 import dev.id.backend.logic.dtos.BaseDto;

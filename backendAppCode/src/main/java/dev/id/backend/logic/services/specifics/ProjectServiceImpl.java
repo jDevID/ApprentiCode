@@ -17,7 +17,9 @@ import dev.id.backend.logic.specs.SearchOperation;
 import dev.id.backend.logic.utils.SpecificationUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
@@ -67,6 +69,11 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project, ProjectDto, Lon
         return projects.stream()
                 .map(mapper::toDTO)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public Page<ProjectDto> search(String searchFilter, String tagName, String complexityName, String command, Boolean active, Long projectId, Pageable pageable) {
+        // add implementation here
     }
 
     public Complexity addComplexityToProject(Long projectId, Complexity complexity) {
