@@ -1,7 +1,7 @@
 package dev.id.backend.logic.security.services;
 
 import dev.id.backend.logic.security.models.entities.Role;
-import dev.id.backend.logic.security.config.jwt.JwtService;
+import dev.id.backend.logic.security.configs.jwt.JwtService;
 import dev.id.backend.logic.security.models.requests.AuthenticationRequest;
 import dev.id.backend.logic.security.models.requests.RegisterRequest;
 import dev.id.backend.logic.security.models.response.AuthenticationResponse;

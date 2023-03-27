@@ -1,5 +1,6 @@
 package dev.id.backend.logic.security.services;
 
+import dev.id.backend.logic.exceptions.NotFoundException;
 import dev.id.backend.logic.security.models.dtos.PermissionCreateDto;
 import dev.id.backend.logic.security.models.dtos.PermissionDetailsDto;
 import dev.id.backend.logic.security.models.dtos.PermissionUpdateDto;
