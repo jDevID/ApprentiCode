@@ -6,4 +6,3 @@ import dev.id.backend.logic.services.BaseService;
 
 public interface EntryService extends BaseService<Entry, EntryDto, Long> {
 }
-

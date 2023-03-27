@@ -32,4 +32,3 @@ public class CachingConfiguration {
         return new ConcurrentMapCacheManager("devCache");
     }
 }
-
