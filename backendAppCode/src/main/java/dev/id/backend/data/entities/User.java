@@ -1,7 +1,7 @@
 package dev.id.backend.data.entities;
 
 
-import dev.id.backend.logic.security.models.entity.Role;
+import dev.id.backend.logic.security.models.entities.Role;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import lombok.*;
@@ -15,8 +15,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Getter
-@Setter
+@Data
 @ToString
 @Builder
 @NoArgsConstructor @AllArgsConstructor
@@ -27,7 +26,8 @@ public class User extends BaseEntity implements UserDetails {
     @Email
     private String email;
     private String password;
-    @Enumerated(EnumType.STRING) //ordinal by default
+    @ManyToOne
+    @JoinColumn(name = "role_id")//ordinal by default
     private Role role;
     @OneToMany(mappedBy = "user")
     @ToString.Exclude
@@ -35,7 +35,7 @@ public class User extends BaseEntity implements UserDetails {
 
     @Override // returns a list of roles
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(role.name())); //take one
+        return List.of(new SimpleGrantedAuthority(role.getName())); //take one
     }
 
     @Override
