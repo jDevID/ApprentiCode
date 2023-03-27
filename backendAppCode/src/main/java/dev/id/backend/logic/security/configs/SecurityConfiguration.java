@@ -1,7 +1,7 @@
-package dev.id.backend.logic.security.config;
+package dev.id.backend.logic.security.configs;
 
-import dev.id.backend.logic.security.config.jwt.JwtAuthenticationEntryPoint;
-import dev.id.backend.logic.security.config.jwt.JwtAuthenticationFilter;
+import dev.id.backend.logic.security.configs.jwt.JwtAuthenticationEntryPoint;
+import dev.id.backend.logic.security.configs.jwt.JwtAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

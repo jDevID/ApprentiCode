@@ -1,4 +1,4 @@
-package dev.id.backend.logic.security.config.jwt;
+package dev.id.backend.logic.security.configs.jwt;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

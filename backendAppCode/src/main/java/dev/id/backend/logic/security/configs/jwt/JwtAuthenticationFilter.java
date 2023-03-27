@@ -1,4 +1,4 @@
-package dev.id.backend.logic.security.config.jwt;
+package dev.id.backend.logic.security.configs.jwt;
 
 import dev.id.backend.logic.security.utils.ContextRequestUtil;
 import jakarta.servlet.FilterChain;
@@ -20,7 +20,7 @@ import java.io.IOException;
 @Component
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
-    private final dev.id.backend.logic.security.config.jwt.JwtService jwtService;
+    private final dev.id.backend.logic.security.configs.jwt.JwtService jwtService;
     private final UserDetailsService userDetailsService; // this to check if user in DB inside internalFilter
     private final ContextRequestUtil requestContextUtil;
 

@@ -1,4 +1,4 @@
-package dev.id.backend.logic.security.config.jwt;
+package dev.id.backend.logic.security.configs.jwt;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

@@ -1,4 +1,4 @@
-package dev.id.backend.logic.security.config;
+package dev.id.backend.logic.security.configs;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.HttpMessageConverter;
