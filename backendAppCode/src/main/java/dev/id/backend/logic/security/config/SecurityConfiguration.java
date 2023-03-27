@@ -1,5 +1,6 @@
 package dev.id.backend.logic.security.config;
 
+import dev.id.backend.logic.security.config.jwt.JwtAuthenticationEntryPoint;
 import dev.id.backend.logic.security.config.jwt.JwtAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -11,22 +12,26 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+
 
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
-public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+public class SecurityConfiguration  {
     private final JwtAuthenticationFilter jwtAuthFilter; // final = automatically injected
     private final AuthenticationProvider authenticationProvider;
+    private final JwtAuthenticationEntryPoint jwtAuthEntryPoint;
 
     // SecurityFilterChain = configure all the Beans needed in app
     @Bean
     public SecurityFilterChain securityFilterChain (HttpSecurity http) throws Exception {
         http  // what are URL and path you want to secure (=> need Whitelist, so no token asked)
-                .csrf() // verif
+                .csrf()
                 .disable()
-                .authorizeHttpRequests() //WHITELISTING
+                .exceptionHandling()
+                .authenticationEntryPoint(jwtAuthEntryPoint)
+                .and()
+                .authorizeRequests()
                 .antMatchers("/api/auth/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/api/v1/roles/**").hasAuthority("READ_ROLE")
                 .antMatchers(HttpMethod.POST, "/api/v1/roles").hasAuthority("CREATE_ROLE")
@@ -43,6 +48,4 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 // Now we need to provide this authenticator provider Bean
         return http.build();
     }
-
-
 }
