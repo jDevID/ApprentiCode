@@ -4,7 +4,7 @@ Role enum: This defines the user roles (USER and ADMIN) and implements the Grant
 
     RequestContextUtil: A utility class for getting the user ID from the request header.
 
-    AuthenticationService: A service class for handling user registration and authentication, which utilizes the UserRepository, PasswordEncoder, JwtService, and AuthenticationManager.
+    AuthenticationService: A backend.service class for handling user registration and authentication, which utilizes the UserRepository, PasswordEncoder, JwtService, and AuthenticationManager.
 
     UserRepository: A JPA repository for user entities.
 
@@ -16,6 +16,6 @@ Role enum: This defines the user roles (USER and ADMIN) and implements the Grant
 
     ApplicationConfig: A configuration class for providing beans for the UserDetailsService, AuthenticationProvider, PasswordEncoder, and AuthenticationManager.
 
-    JwtService: A service class for handling JWT generation, extraction, and validation.
+    JwtService: A backend.service class for handling JWT generation, extraction, and validation.
 
     JwtAuthenticationFilter: A filter for checking and processing JWT tokens in incoming HTTP requests.

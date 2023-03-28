@@ -10,7 +10,6 @@
     </parent>
     <!-- lookup parent from repository -->
 
-    <groupId>dev.id</groupId>
     <artifactId>backendAppCode</artifactId>
     <version>0.1</version>
 
