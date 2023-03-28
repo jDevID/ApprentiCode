@@ -1,17 +1,16 @@
 package backend.controller;
 
-import controllers.BaseController;
-import domain.entity.Complexity;
-import domain.entity.Project;
-import domain.dto.ComplexityDto;
-import domain.dto.ProjectDto;
-import domain.dto.ResourceDto;
-import mapper.ComplexityMapper;
-import mapper.ProjectMapper;
-import mapper.ResourceMapper;
+import backend.domain.dto.ComplexityDto;
+import backend.domain.dto.ProjectDto;
+import backend.domain.dto.ResourceDto;
+import backend.domain.dto.ResponseDto;
+import backend.domain.entity.Complexity;
+import backend.domain.entity.Project;
+import backend.mapper.ComplexityMapper;
+import backend.mapper.ProjectMapper;
+import backend.mapper.ResourceMapper;
 import backend.service.impl.ProjectServiceImpl;
 import backend.util.ResponseUtil;
-import domain.dto.ResponseDto;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

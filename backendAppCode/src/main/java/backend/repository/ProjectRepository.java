@@ -1,8 +1,7 @@
-package repositories;
+package backend.repository;
 
-
-import domain.entity.Project;
 import org.springframework.stereotype.Repository;
+import backend.domain.entity.Project;
 
 @Repository
 public interface ProjectRepository extends BaseRepository<Project, Long> { }

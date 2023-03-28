@@ -9,7 +9,7 @@
         <relativePath/>
     </parent>
     <!-- lookup parent from repository -->
-
+    <groupId>backend</groupId>
     <artifactId>backendAppCode</artifactId>
     <version>0.1</version>
 

@@ -1,4 +1,4 @@
-package criteria;
+package backend.filter;
 
 
 import backend.util.SearchOperation;
@@ -12,8 +12,8 @@ import java.util.regex.Pattern;
 public class SearchCriteriaParser {
     private static final String CRITERIA_PATTERN = "([a-zA-Z0-9_]+?)([:!><~])([a-zA-Z0-9_\\-%]+?);";
 
-    public static List<criteria.SearchCriteria> parse(String searchFilter) {
-        List<criteria.SearchCriteria> criteriaList = new ArrayList<>();
+    public static List<SearchCriteria> parse(String searchFilter) {
+        List<SearchCriteria> criteriaList = new ArrayList<>();
 
         if (searchFilter == null || searchFilter.isEmpty()) {
             return criteriaList;
@@ -30,7 +30,7 @@ public class SearchCriteriaParser {
             SearchOperation searchOperation = SearchOperation.getSimpleOperation(operation.charAt(0));
 
             if (searchOperation != null) {
-                criteriaList.add(new criteria.SearchCriteria(key, searchOperation, value));
+                criteriaList.add(new SearchCriteria(key, searchOperation, value));
             }
         }
 

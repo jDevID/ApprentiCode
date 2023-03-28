@@ -1,4 +1,4 @@
-package domain.dto;
+package backend.domain.dto;
 
 import jakarta.persistence.MappedSuperclass;
 import lombok.Getter;

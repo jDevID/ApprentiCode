@@ -1,9 +1,9 @@
-package mapper;
+package backend.mapper;
 
-import domain.entity.Project;
-import domain.dto.ProjectDto;
+
+import backend.domain.dto.ProjectDto;
+import backend.domain.entity.Project;
 import org.mapstruct.Mapper;
-
 
 @Mapper(componentModel = "spring")
 public interface ProjectMapper extends BaseMapper<ProjectDto, Project> {

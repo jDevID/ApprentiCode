@@ -1,8 +1,11 @@
-package repositories;
+package backend.repository;
 
-import domain.entity.User;
+import backend.domain.entity.User;
 import org.springframework.stereotype.Repository;
 
-@Repository @SuppressWarnings("unused") // TODO: SECURITY ALONG ANGULAR
+import java.util.Optional;
+
+@Repository
 public interface UserRepository  extends BaseRepository<User, Long> {
+    Optional<User> findByEmail(String username);
 }

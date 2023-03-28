@@ -1,12 +1,12 @@
-package controllers;
+package backend.controller;
 
 
-import exceptions.EntityDeleteException;
-import exceptions.EntityUpdateException;
-import mapper.BaseMapper;
+import backend.domain.dto.ResponseDto;
+import backend.exception.EntityDeleteException;
+import backend.exception.EntityUpdateException;
+import backend.mapper.BaseMapper;
 import backend.service.BaseService;
 import backend.util.ResponseUtil;
-import domain.dto.ResponseDto;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;

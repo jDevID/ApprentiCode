@@ -1,4 +1,4 @@
-package criteria;
+package backend.filter;
 
 import backend.util.SearchOperation;
 import lombok.Data;

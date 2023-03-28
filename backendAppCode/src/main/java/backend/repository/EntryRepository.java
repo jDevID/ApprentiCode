@@ -1,6 +1,6 @@
-package repositories;
+package backend.repository;
 
-import domain.entity.Entry;
+import backend.domain.entity.Entry;
 import org.springframework.stereotype.Repository;
 
 @Repository

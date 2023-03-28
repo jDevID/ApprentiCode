@@ -1,7 +1,8 @@
-package mapper;
+package backend.mapper;
 
-import domain.entity.Complexity;
-import domain.dto.ComplexityDto;
+
+import backend.domain.dto.ComplexityDto;
+import backend.domain.entity.Complexity;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")

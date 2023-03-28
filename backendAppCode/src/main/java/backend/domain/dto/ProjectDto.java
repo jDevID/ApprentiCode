@@ -1,6 +1,5 @@
-package domain.dto;
+package backend.domain.dto;
 
-import domain.entity.Project;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import lombok.*;
@@ -8,9 +7,6 @@ import lombok.*;
 import java.io.Serializable;
 import java.util.List;
 
-/**
- * A DTO for the {@link Project} entity
- */
 @EqualsAndHashCode(callSuper = true)
 @Builder
 @Data

@@ -1,4 +1,4 @@
-package exceptions;
+package backend.exception;
 
 import java.util.Map;
 

@@ -1,13 +1,13 @@
-package mapper;
+package backend.mapper;
 
 import org.mapstruct.MappingTarget;
 
 import java.util.List;
 
-public interface BaseMapper<D, T> {
-    T fromDTO(D dto);
-    D toDTO(T entity);
-    List<T> fromDTOList(List<D> dtos);
-    List<D> toDTOList(List<T> entities);
-    void updateEntity(T source, @MappingTarget T target);
+public interface BaseMapper<D, E> {
+    E fromDTO(D dto);
+    D toDTO(E entity);
+    List<E> fromDTOList(List<D> dtos);
+    List<D> toDTOList(List<E> entities);
+    void updateEntity(E source, @MappingTarget E target);
 }

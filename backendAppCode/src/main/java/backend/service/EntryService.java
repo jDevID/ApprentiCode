@@ -1,7 +1,6 @@
 package backend.service;
 
-import domain.entity.Entry;
-import domain.dto.EntryDto;
 
-public interface EntryService extends BaseService<Entry, EntryDto, Long> {
+
+public interface EntryService extends BaseService<backend.domain.entity.Entry, backend.domain.dto.EntryDto, Long> {
 }

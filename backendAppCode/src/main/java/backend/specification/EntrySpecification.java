@@ -1,9 +1,10 @@
 package backend.specification;
 
-import domain.entity.Entry;
-import criteria.SearchCriteria;
-import domain.dto.EntryDto;
-import domain.dto.TagDto;
+
+import backend.domain.dto.EntryDto;
+import backend.domain.dto.TagDto;
+import backend.domain.entity.Entry;
+import backend.filter.SearchCriteria;
 import org.springframework.data.jpa.domain.Specification;
 
 import java.util.List;

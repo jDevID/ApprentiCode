@@ -1,7 +1,7 @@
-package repositories;
+package backend.repository;
 
+import backend.domain.entity.Resource;
 import org.springframework.stereotype.Repository;
-import domain.entity.Resource;
 
 @Repository
 public interface ResourceRepository extends BaseRepository<Resource, Long> {

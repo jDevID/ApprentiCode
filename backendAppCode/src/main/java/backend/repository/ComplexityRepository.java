@@ -1,7 +1,7 @@
-package repositories;
+package backend.repository;
 
 
-import domain.entity.Complexity;
+import backend.domain.entity.Complexity;
 import org.springframework.stereotype.Repository;
 
 @Repository

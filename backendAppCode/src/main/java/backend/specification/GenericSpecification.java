@@ -1,6 +1,6 @@
 package backend.specification;
 
-import criteria.SearchCriteria;
+import backend.filter.SearchCriteria;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Predicate;

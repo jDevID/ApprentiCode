@@ -1,7 +1,7 @@
-package domain.entity;
+package backend.domain.entity;
 
 
-import security.models.entities.Role;
+import backend.security.domain.entity.Role;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import lombok.*;
@@ -18,7 +18,8 @@ import java.util.Objects;
 @Data
 @ToString
 @Builder
-@NoArgsConstructor @AllArgsConstructor
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "_user") //postgres already allocates a User Table
 public class User extends BaseEntity implements UserDetails {
     private String lastname;

@@ -1,6 +1,7 @@
-package domain.validation;
+package backend.domain.validation;
 
-import exceptions.GenericValidationException;
+
+import backend.exception.GenericValidationException;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;

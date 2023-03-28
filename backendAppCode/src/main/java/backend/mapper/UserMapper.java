@@ -1,7 +1,7 @@
-package mapper;
+package backend.mapper;
 
-import domain.entity.User;
-import domain.dto.UserDto;
+import backend.domain.dto.UserDto;
+import backend.domain.entity.User;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")

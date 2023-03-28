@@ -1,6 +1,6 @@
 package backend.util;
 
-import domain.dto.ResponseDto;
+import backend.domain.dto.ResponseDto;
 import org.springframework.http.HttpStatus;
 
 import java.time.LocalDateTime;

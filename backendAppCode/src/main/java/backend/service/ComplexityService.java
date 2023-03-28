@@ -1,7 +1,8 @@
 package backend.service;
 
-import domain.entity.Complexity;
-import domain.dto.ComplexityDto;
+
+import backend.domain.dto.ComplexityDto;
+import backend.domain.entity.Complexity;
 
 public interface ComplexityService extends BaseService<Complexity, ComplexityDto, Long> {
 }

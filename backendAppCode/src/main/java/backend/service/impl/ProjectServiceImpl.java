@@ -1,19 +1,20 @@
 package backend.service.impl;
 
-import domain.entity.Complexity;
-import domain.entity.Project;
-import domain.entity.Resource;
-import repositories.ComplexityRepository;
-import repositories.ProjectRepository;
-import repositories.ResourceRepository;
-import domain.dto.ComplexityDto;
-import domain.dto.ProjectDto;
-import domain.dto.ResourceDto;
-import mapper.ComplexityMapper;
-import mapper.ProjectMapper;
-import mapper.ResourceMapper;
+import backend.domain.dto.ComplexityDto;
+import backend.domain.dto.ProjectDto;
+import backend.domain.dto.ResourceDto;
+import backend.domain.entity.Complexity;
+import backend.domain.entity.Project;
+import backend.domain.entity.Resource;
+import backend.filter.SearchCriteria;
+import backend.mapper.ComplexityMapper;
+import backend.mapper.ProjectMapper;
+import backend.mapper.ResourceMapper;
+import backend.repository.ComplexityRepository;
+import backend.repository.ProjectRepository;
+import backend.repository.ResourceRepository;
+import backend.service.ProjectService;
 import backend.specification.GenericSpecification;
-import criteria.SearchCriteria;
 import backend.util.SearchOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,6 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import backend.service.ProjectService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -88,7 +88,7 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project, ProjectDto, Lon
 
     public ComplexityDto updateComplexityInProject(Long projectId, Long complexityId, ComplexityDto complexityDto) {
         Project project = getProject(projectId);
-        Complexity existingComplexity = getComplexityBelongingToProject(complexityId, project);
+       Complexity existingComplexity = getComplexityBelongingToProject(complexityId, project);
 
         existingComplexity.setName(complexityDto.getName());
         Complexity updatedComplexity = complexityRepository.save(existingComplexity);
@@ -152,7 +152,7 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project, ProjectDto, Lon
     public Complexity getComplexityById(Long projectId, Long complexityId) {
         Project project = repository.findById(projectId)
                 .orElseThrow(() -> new ResourceNotFoundException("Project not found"));
-        Complexity complexity = complexityRepository.findById(complexityId)
+       Complexity complexity = complexityRepository.findById(complexityId)
                 .orElseThrow(() -> new ResourceNotFoundException("Complexity not found"));
 
         if (!complexity.getProject().getId().equals(project.getId())) {

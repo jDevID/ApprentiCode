@@ -1,7 +1,7 @@
-package exceptions;
+package backend.exception;
 
+import backend.domain.dto.ResponseDto;
 import backend.util.ResponseUtil;
-import domain.dto.ResponseDto;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataIntegrityViolationException;

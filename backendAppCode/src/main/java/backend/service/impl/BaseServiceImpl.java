@@ -1,12 +1,13 @@
 package backend.service.impl;
 
-import repositories.BaseRepository;
-import domain.validation.DtoValidation;
-import mapper.BaseMapper;
+import backend.domain.validation.DtoValidation;
+import backend.filter.SearchCriteria;
+import backend.filter.SearchCriteriaParser;
+import backend.mapper.BaseMapper;
+import backend.repository.BaseRepository;
+import backend.service.BaseService;
 import backend.specification.GenericSpecification;
-import criteria.SearchCriteria;
 import backend.util.IdUtil;
-import criteria.SearchCriteriaParser;
 import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
@@ -14,7 +15,6 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import backend.service.BaseService;
 
 import java.io.Serializable;
 import java.util.List;

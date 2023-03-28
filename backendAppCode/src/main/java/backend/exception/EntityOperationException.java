@@ -1,4 +1,4 @@
-package exceptions;
+package backend.exception;
 
 public class EntityOperationException extends RuntimeException {
     private final OperationType operationType;

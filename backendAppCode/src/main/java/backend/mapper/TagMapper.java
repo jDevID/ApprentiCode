@@ -1,8 +1,8 @@
-package mapper;
+package backend.mapper;
 
 
-import domain.entity.Tag;
-import domain.dto.TagDto;
+import backend.domain.dto.TagDto;
+import backend.domain.entity.Tag;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")

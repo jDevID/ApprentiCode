@@ -1,6 +1,6 @@
-package config;
+package backend.config;
 
-import mapper.*;
+import backend.mapper.*;
 import org.mapstruct.factory.Mappers;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

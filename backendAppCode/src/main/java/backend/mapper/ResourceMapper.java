@@ -1,7 +1,8 @@
-package mapper;
+package backend.mapper;
 
-import domain.entity.Resource;
-import domain.dto.ResourceDto;
+
+import backend.domain.dto.ResourceDto;
+import backend.domain.entity.Resource;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring", uses = ComplexityMapper.class)

@@ -1,7 +1,8 @@
 package backend.service;
 
-import domain.entity.Project;
-import domain.dto.ProjectDto;
+
+import backend.domain.dto.ProjectDto;
+import backend.domain.entity.Project;
 
 public interface ProjectService extends BaseService<Project, ProjectDto, Long> {
 }

@@ -1,10 +1,10 @@
-package domain.dto;
+package backend.domain.dto;
 
+import backend.security.domain.entity.Role;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.*;
-import security.models.entities.Role;
 
 import java.io.Serializable;
 import java.util.List;

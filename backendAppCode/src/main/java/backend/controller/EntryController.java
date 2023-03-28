@@ -1,9 +1,8 @@
 package backend.controller;
 
-import controllers.BaseController;
-import domain.entity.Entry;
-import domain.dto.EntryDto;
-import mapper.BaseMapper;
+import backend.domain.dto.EntryDto;
+import backend.domain.entity.Entry;
+import backend.mapper.BaseMapper;
 import backend.service.EntryService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,12 +33,12 @@ public class EntryController extends BaseController<Entry, EntryDto, Long> {
      */
     @GetMapping("/search")
     public ResponseEntity<Page<EntryDto>> search(@RequestParam(value = "filter", required = false) String filter,
-                                                 @RequestParam(value = "tagName", required = false) String tagName,
-                                                 @RequestParam(value = "complexityName", required = false) String complexityName,
-                                                 @RequestParam(value = "command", required = false) String command,
-                                                 @RequestParam(value = "active", required = false) Boolean active,
-                                                 @RequestParam(value = "projectId", required = false) Long projectId,
-                                                 Pageable pageable) {
+                                                            @RequestParam(value = "tagName", required = false) String tagName,
+                                                            @RequestParam(value = "complexityName", required = false) String complexityName,
+                                                            @RequestParam(value = "command", required = false) String command,
+                                                            @RequestParam(value = "active", required = false) Boolean active,
+                                                            @RequestParam(value = "projectId", required = false) Long projectId,
+                                                            Pageable pageable) {
         if (filter == null) {
             filter = "";
         }
