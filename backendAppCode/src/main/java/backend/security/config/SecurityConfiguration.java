@@ -19,34 +19,30 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfiguration  {
-    private final JwtAuthenticationFilter jwtAuthFilter; // final = automatically injected
+    private final JwtAuthenticationFilter jwtAuthFilter;
     private final AuthenticationProvider authenticationProvider;
     private final JwtAuthenticationEntryPoint jwtAuthEntryPoint;
 
-    // SecurityFilterChain = configure all the Beans needed in app
     @Bean
-    public SecurityFilterChain securityFilterChain (HttpSecurity http) throws Exception {
-        http  // what are URL and path you want to secure (=> need Whitelist, so no token asked)
-                .csrf()
-                .disable()
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http // what are URL and path you want to secure (=> need Whitelist, so no token asked)
+                .csrf().disable()
                 .exceptionHandling()
                 .authenticationEntryPoint(jwtAuthEntryPoint)
                 .and()
-                .authorizeRequests()
-                .antMatchers("/api/auth/**").permitAll()
-                .antMatchers(HttpMethod.GET, "/api/v1/roles/**").hasAuthority("READ_ROLE")
-                .antMatchers(HttpMethod.POST, "/api/v1/roles").hasAuthority("CREATE_ROLE")
-                .antMatchers(HttpMethod.PUT, "/api/v1/roles/**").hasAuthority("UPDATE_ROLE")
-                .antMatchers(HttpMethod.DELETE, "/api/v1/roles/**").hasAuthority("DELETE_ROLE")
-                .anyRequest() // all others
-                .authenticated() // get authenticated
-                .and() // Session should be stateless to insure each Request is authenticated
-                .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS) // how we want to create them
+                .authorizeRequests(authorize -> authorize
+                        .antMatchers("/api/auth/**").permitAll()
+                        .antMatchers(HttpMethod.GET, "/api/v1/roles/**").hasAuthority("READ_ROLE")
+                        .antMatchers(HttpMethod.POST, "/api/v1/roles").hasAuthority("CREATE_ROLE")
+                        .antMatchers(HttpMethod.PUT, "/api/v1/roles/**").hasAuthority("UPDATE_ROLE")
+                        .antMatchers(HttpMethod.DELETE, "/api/v1/roles/**").hasAuthority("DELETE_ROLE")
+                        .anyRequest().authenticated()// all others get authenticated
+                )// Session should be stateless to insure each Request is authenticated
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and() // which authentication provider to choose
-                .authenticationProvider(authenticationProvider) // now we want to use our JwtFilter
-                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class); //we want our Filter to work before, update then call username auth filter
-                // Now we need to provide this authenticator provider Bean
+                .authenticationProvider(authenticationProvider)
+                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+
         return http.build();
     }
 }

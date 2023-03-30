@@ -1,29 +1,37 @@
 package backend.security.service;
 
-import backend.security.repository.UserRepository;
+import backend.domain.entity.User;
 import backend.security.config.jwt.JwtService;
+import backend.security.domain.entity.RefreshToken;
 import backend.security.domain.entity.Role;
 import backend.security.domain.request.AuthenticationRequest;
 import backend.security.domain.request.RegisterRequest;
 import backend.security.domain.response.AuthenticationResponse;
+import backend.security.repository.RefreshTokenRepository;
+import backend.security.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import backend.domain.entity.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-@Service @RequiredArgsConstructor @Slf4j
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
+import java.util.UUID;
+
+@Service
+@RequiredArgsConstructor
+@Slf4j
 public class AuthenticationService {
     private final UserRepository repository;
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService; // to generate token
     private final AuthenticationManager authenticationManager; // to authenticate after registering
-    private static final Logger logger = LoggerFactory.getLogger(AuthenticationService.class);
-
+    private final RefreshTokenRepository refreshTokenRepository;
+    private final UserDetailsService userDetailsService;
 
     public AuthenticationResponse register(RegisterRequest request) { // Create a User Object
         var user = User.builder()
@@ -36,7 +44,7 @@ public class AuthenticationService {
         repository.save(user); // !
 
         var jwtToken = jwtService.generateToken(user);
-        logger.info("User registered successfully: {}", user.getEmail());
+        log.info("User registered successfully: {}", user.getEmail());
         return AuthenticationResponse.builder()
                 .token(jwtToken) //pass it the token
                 .build();
@@ -55,10 +63,34 @@ public class AuthenticationService {
 
         // generate token and return Response
         var jwtToken = jwtService.generateToken(user);
-        logger.info("User authenticated successfully: {}", user.getEmail());
+        log.info("User authenticated successfully: {}", user.getEmail());
         return AuthenticationResponse.builder()
                 .token(jwtToken) //pass it the token
                 .build();
     }
 
+    public AuthenticationResponse refreshToken(String refreshToken) {
+        RefreshToken refreshTokenEntity = refreshTokenRepository.findByToken(refreshToken)
+                .orElseThrow(() -> new RuntimeException("Refresh token not found"));
+
+        if (refreshTokenEntity.getExpiryDate().isBefore(Instant.now())) {
+            refreshTokenRepository.delete(refreshTokenEntity);
+            throw new RuntimeException("Refresh token expired");
+        }
+
+        UserDetails userDetails = userDetailsService.loadUserByUsername(refreshTokenEntity.getUser().getEmail());
+        String jwt = jwtService.generateToken(userDetails);
+
+        return new AuthenticationResponse(jwt, refreshToken);
+    }
+
+    private RefreshToken generateRefreshToken(User user) {
+        RefreshToken refreshToken = new RefreshToken();
+        refreshToken.setUser(user);
+        refreshToken.setToken(UUID.randomUUID().toString());
+        refreshToken.setExpiryDate(Instant.now().plus(7, ChronoUnit.DAYS));
+
+        refreshTokenRepository.deleteByUser(user);
+        return refreshTokenRepository.save(refreshToken);
+    }
 }

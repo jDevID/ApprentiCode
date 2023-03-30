@@ -3,6 +3,7 @@ package backend.exception;
 import backend.domain.dto.ResponseDto;
 import backend.util.ResponseUtil;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
@@ -11,8 +12,6 @@ import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.validation.FieldError;
-import org.springframework.web.HttpMediaTypeNotSupportedException;
-import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -67,19 +66,23 @@ public class GlobalExceptionHandler<DTO> {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseDto);
     }
 
-    @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
-    public ResponseEntity<ResponseDto<Optional<DTO>>> handleHttpRequestMethodNotSupportedException(HttpRequestMethodNotSupportedException e, WebRequest request) {
+    @ExceptionHandler(value = {jakarta.servlet.ServletException.class})
+    public ResponseEntity<ResponseDto<Optional<DTO>>> handleHttpRequestMethodNotSupportedException(
+            jakarta.servlet.ServletException e, HttpServletRequest request) {
         log.warn("HTTP method not supported: {}", request);
 
-        ResponseDto<Optional<DTO>> responseDto = ResponseUtil.buildResponse(LocalDateTime.now(), HttpStatus.METHOD_NOT_ALLOWED, e.getMessage(), null, Optional.empty());
+        ResponseDto<Optional<DTO>> responseDto = ResponseUtil.buildResponse(LocalDateTime.now(), HttpStatus.METHOD_NOT_ALLOWED,
+                e.getMessage(), null, Optional.empty());
         return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED).body(responseDto);
     }
 
-    @ExceptionHandler(HttpMediaTypeNotSupportedException.class)
-    public ResponseEntity<ResponseDto<Optional<DTO>>> handleHttpMediaTypeNotSupportedException(HttpMediaTypeNotSupportedException e, WebRequest request) {
+    @ExceptionHandler(value = {jakarta.servlet.ServletException.class})
+    public ResponseEntity<ResponseDto<Optional<DTO>>> handleHttpMediaTypeNotSupportedException(
+            jakarta.servlet.ServletException e, HttpServletRequest request) {
         log.warn("Media type not supported: {}", request);
 
-        ResponseDto<Optional<DTO>> responseDto = ResponseUtil.buildResponse(LocalDateTime.now(), HttpStatus.UNSUPPORTED_MEDIA_TYPE, e.getMessage(), null, Optional.empty());
+        ResponseDto<Optional<DTO>> responseDto = ResponseUtil.buildResponse(LocalDateTime.now(), HttpStatus.UNSUPPORTED_MEDIA_TYPE,
+                e.getMessage(), null, Optional.empty());
         return ResponseEntity.status(HttpStatus.UNSUPPORTED_MEDIA_TYPE).body(responseDto);
     }
 

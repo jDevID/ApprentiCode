@@ -11,12 +11,11 @@ import java.util.Optional;
 public interface PermissionService {
     PermissionDetailsDto createPermission(PermissionCreateDto createPermissionDto);
 
-   Optional<PermissionDetailsDto> updatePermission(String id, PermissionUpdateDto updatePermissionDto);
+    Optional<PermissionDetailsDto> updatePermission(String id, PermissionUpdateDto updatePermissionDto);
 
     Optional<PermissionDetailsDto> getPermission(String id);
 
     void deletePermission(String id);
 
     List<PermissionDetailsDto> getAllPermissions();
-
 }

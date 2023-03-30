@@ -34,9 +34,10 @@ public class PermissionServiceImpl implements PermissionService {
                 () -> new NotFoundException(String.format("Permission with id %s not found", id)));
         permission.setName(updatePermissionDto.getName());
         permission.setDescription(updatePermissionDto.getDescription());
-    Permission savedPermission = permissionRepository.save(permission);
+        Permission savedPermission = permissionRepository.save(permission);
         return Optional.of(convertToPermissionDetailsDto(savedPermission));
     }
+
     @Override
     public Optional<PermissionDetailsDto> getPermission(String id) {
         Optional<Permission> permission = permissionRepository.findById(Long.parseLong(id));
@@ -63,5 +64,4 @@ public class PermissionServiceImpl implements PermissionService {
         permissionDetailsDto.setDescription(permission.getDescription());
         return permissionDetailsDto;
     }
-
 }

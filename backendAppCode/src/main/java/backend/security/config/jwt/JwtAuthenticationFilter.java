@@ -1,11 +1,10 @@
 package backend.security.config.jwt;
 
 import backend.security.util.ContextRequestUtil;
-import jakarta.servlet.FilterChain;
-import jakarta.servlet.ServletException;
+import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.springframework.lang.NonNull;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -13,27 +12,22 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
-import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 
-@Component
-public class JwtAuthenticationFilter extends OncePerRequestFilter {
+@Component @RequiredArgsConstructor
+public class JwtAuthenticationFilter implements Filter {
     private final JwtService jwtService;
     private final UserDetailsService userDetailsService; // this to check if user in DB inside internalFilter
     private final ContextRequestUtil contextRequestUtil;
 
-    public JwtAuthenticationFilter(AuthenticationManager authenticationManager, JwtService jwtService, UserDetailsService userDetailsService, ContextRequestUtil contextRequestUtil) {
-        this.jwtService = jwtService;
-        this.userDetailsService = userDetailsService;
-        this.contextRequestUtil = contextRequestUtil;
-    }
+
     @Override
-    protected void doFilterInternal(
-            @NonNull HttpServletRequest request,
-            @NonNull HttpServletResponse response,
-            @NonNull FilterChain filterChain
-    ) throws ServletException, IOException {
+    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
+            throws IOException, ServletException {
+        HttpServletRequest request = (HttpServletRequest) servletRequest;
+        HttpServletResponse response = (HttpServletResponse) servletResponse;
+
         // First Action to JWT Auth is checking if JWToken, included inside HTTP Header
         final String authHeader = request.getHeader("Authorization");
         final String jwt;
@@ -60,7 +54,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                         userDetails.getAuthorities()
                 );
                 authToken.setDetails(
-                    new WebAuthenticationDetailsSource().buildDetails(request) // WebAuthenticationDetailsSource not existing in Spring 3.0.2
+                    new WebAuthenticationDetailsSource().buildDetails(request) // WebAuthenticationDetailsSource not existing in Spring 3.0.1+
                 );
                 // FINAL STEP: update Security Context Holder
                 SecurityContextHolder.getContext().setAuthentication(authToken);
