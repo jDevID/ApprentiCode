@@ -1,4 +1,5 @@
 @import '~@angular/material/theming';
+
 @include mat-core();
 
 // Define your custom theme or import a pre-built one
@@ -11,8 +12,20 @@ $app-theme: mat-light-theme($app-primary, $app-accent, $app-warn);
 @include angular-material-theme($app-theme);
 
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html, body {
+  height: 100%;
+  margin: 0;;
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  height: 40%;
+  width: 12cm;
+  border: 1px solid #ccc;
+  background-color: #f5f5f5;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
 
 .dark-mode {
   background-color: #212121;
@@ -20,4 +33,16 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
   // Apply styles to other elements as needed
   // ...
+}
+
+@media (max-width: 768px) {
+  .app-container {
+    width: 100%;
+  }
+
+  .navigation {
+    flex-direction: row;
+    width: 100%;
+    height: 60px;
+  }
 }

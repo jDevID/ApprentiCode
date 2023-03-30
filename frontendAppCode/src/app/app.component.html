@@ -1,18 +1,16 @@
 <app-shortcuts></app-shortcuts>
 <!-- Rest of the app components -->
+<div class="app-container">
+  <app-navigation></app-navigation>
+  <div class="content">
+    <app-search-bar></app-search-bar>
+    <!-- Your content here -->
+  </div>
+  <li>
+    <a routerLink="/user/update/1">Update User</a>
+  </li>
 
-<nav>
-  <a routerLink="/users">Users</a>
-  <a routerLink="/projects">Projects</a>
-  <a routerLink="/complexities">Complexities</a>
-  <a routerLink="/entries">Entries</a>
-  <a routerLink="/resources">Resources</a>
-  <a routerLink="/tags">Tags</a>
-</nav>
-<li>
-  <a routerLink="/user/update/1">Update User</a>
-</li>
+  <button (click)="toggleDarkMode()">Toggle dark mode</button>
 
-<button (click)="toggleDarkMode()">Toggle dark mode</button>
-
-<router-outlet></router-outlet>
+  <router-outlet></router-outlet>
+</div>

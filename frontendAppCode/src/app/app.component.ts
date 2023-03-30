@@ -1,15 +1,18 @@
-import {Component, HostListener} from '@angular/core';
+import {Component, HostListener, OnInit} from '@angular/core';
 import {ThemeService} from "./services/theme.service";
+import { WindowService } from './services/window.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
+  constructor(private windowService: WindowService, private themeService: ThemeService) {}
   title = 'frontendAppCode';
 
-  constructor(private themeService: ThemeService) {
+  ngOnInit(): void {
+    this.windowService.registerAppContainer(document.getElementById('app-container'));
   }
 
   toggleDarkMode(): void {

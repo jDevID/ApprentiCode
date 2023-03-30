@@ -33,6 +33,9 @@ import {SearchBarComponent} from './components/search-bar/search-bar.component';
 // personalize search-bar
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatButtonModule} from "@angular/material/button";
+import { NavigationComponent } from './components/navigation/navigation.component';
+import { LoginComponent } from './components/login/login.component';
+import { RegisterComponent } from './components/register/register.component';
 
 
 @NgModule({
@@ -47,6 +50,9 @@ import {MatButtonModule} from "@angular/material/button";
     UpdateUserComponent,
     ShortcutsComponent,
     SearchBarComponent,
+    NavigationComponent,
+    LoginComponent,
+    RegisterComponent,
   ],
   imports: [
     BrowserModule,
