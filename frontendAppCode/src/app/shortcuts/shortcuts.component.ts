@@ -11,4 +11,11 @@ export class ShortcutsComponent {
     event.preventDefault();
     // Your logic to minimize the window or perform other actions
   }
+
+  @HostListener('window:keydown', ['$event'])
+  onKeyDown(event: KeyboardEvent): void {
+    if (event.ctrlKey && event.key === 'KeyX') {
+      // Your action for the keybinding
+    }
+  }
 }
