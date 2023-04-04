@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 // search
 import { HttpClient, HttpParams } from '@angular/common/http';
-import {ProjectInterface} from "../interfaces/project.interface";
+import {Project} from "../interfaces/project.interface";
 import {Observable} from "rxjs";
 
 @Injectable({
