@@ -1,0 +1,25 @@
+<mat-toolbar color="primary">
+  <span>My App</span>
+  <span class="spacer"></span>
+
+  <mat-form-field class="search-bar">
+    <input matInput [(ngModel)]="searchQuery" (keyup.enter)="search()" placeholder="Search" appAutofocus>
+  </mat-form-field>
+
+  <button mat-icon-button aria-label="Clear search" *ngIf="searchQuery" (click)="clearSearch()">
+    <mat-icon>close</mat-icon>
+  </button>
+
+</mat-toolbar>
+<mat-sidenav-container>
+  <mat-sidenav mode="side" opened class="sidebar">
+    <a routerLink="/projects" routerLinkActive="active" mat-raised-button color="primary">Projects</a>
+    <!--    <a routerLink="/sublink1" routerLinkActive="active" mat-raised-button color="primary">Sublink 1</a>-->
+    <!--    <a routerLink="/sublink2" routerLinkActive="active" mat-raised-button color="primary">Sublink 2</a>-->
+    <!--    <a routerLink="/sublink3" routerLinkActive="active" mat-raised-button color="primary">Sublink 3</a>-->
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <div class="content">
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

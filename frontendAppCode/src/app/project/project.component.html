@@ -1,0 +1,33 @@
+<input
+  matInput
+  [(ngModel)]="searchTerm"
+  placeholder="Search projects"
+/>
+
+
+
+<app-generic-table
+  *ngIf="!loading"
+  [data]="dataSource.data | searchFilter: searchTerm: ['name', 'description']"
+  [columns]="['id', 'name', 'description', 'dateCreated']"
+  [columnLabels]="['ID', 'Name', 'Description', 'Date Created']"
+  [columnTemplates]="{ dateCreated: dateCreatedTemplate }"
+></app-generic-table>
+
+<ng-template #dateCreatedTemplate let-project>
+  {{ project.dateCreated | date: 'd MMMM yyyy' }}
+</ng-template>
+
+<button
+  mat-raised-button
+  color="primary"
+  appDebounceClick
+  (debounceClick)="reloadProjects()"
+  [debounceTime]="1000"
+>
+  Reload Projects
+</button>
+
+<div *ngIf="loading">
+  <app-loading-spinner></app-loading-spinner>
+</div>

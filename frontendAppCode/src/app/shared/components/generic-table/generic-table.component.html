@@ -1,0 +1,12 @@
+<table class="table">
+  <thead>
+  <tr>
+    <th *ngFor="let columnLabel of columnLabels">{{ columnLabel }}</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let row of data">
+    <td *ngFor="let column of columns">{{ row[column] | truncate: 20 }}</td>
+  </tr>
+  </tbody>
+</table>

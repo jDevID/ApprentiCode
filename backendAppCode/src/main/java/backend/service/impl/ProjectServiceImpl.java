@@ -18,6 +18,7 @@ import backend.specification.GenericSpecification;
 import backend.util.SearchOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -56,6 +57,7 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project, ProjectDto, Lon
         return new GenericSpecification<>(criteriaList);
     }
 
+    @Cacheable("projectSearchCache")
     @Override
     public Page<ProjectDto> search(String searchFilter, String tagName, String complexityName, String command, Boolean active, Long projectId, Pageable pageable) {
         List<SearchCriteria> criteriaList = new ArrayList<>();

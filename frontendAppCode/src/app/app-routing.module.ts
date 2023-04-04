@@ -1,12 +1,12 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {ProjectComponent} from './components/project/project.component';
-import {MatTableModule} from '@angular/material/table';
-import {MatPaginatorModule} from '@angular/material/paginator';
-import {MatSortModule} from '@angular/material/sort';
+import {ProjectComponent} from './project/project.component';
+import { ComplexityComponent } from './complexity/complexity.component';
 
 const routes: Routes = [
   {path: 'projects', component: ProjectComponent},
+  { path: 'complexities', component: ComplexityComponent },
+  { path: '', redirectTo: 'projects', pathMatch: 'full' },
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes),
