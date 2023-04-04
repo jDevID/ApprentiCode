@@ -1,20 +1,19 @@
 @import '~@angular/material/theming';
 
-@include mat-core();
-
-// Define your custom theme or import a pre-built one
+// Define the palettes for your theme
 $app-primary: mat-palette($mat-indigo);
 $app-accent: mat-palette($mat-pink, A200, A100, A400);
 $app-warn: mat-palette($mat-red);
+
+// Create the theme object
 $app-theme: mat-light-theme($app-primary, $app-accent, $app-warn);
 
 // Apply the theme to your application
 @include angular-material-theme($app-theme);
 
-
 html, body {
   height: 100%;
-  margin: 0;;
+  margin: 0;
 }
 
 .app-container {
@@ -30,9 +29,6 @@ html, body {
 .dark-mode {
   background-color: #212121;
   color: #ffffff;
-
-  // Apply styles to other elements as needed
-  // ...
 }
 
 @media (max-width: 768px) {
@@ -46,3 +42,6 @@ html, body {
     height: 60px;
   }
 }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

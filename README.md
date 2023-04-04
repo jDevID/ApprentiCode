@@ -18,7 +18,7 @@
 <ul>
     <li>Document Management: Easily store, manage, and search your notes, code snippets, and project documents</li>
     <li>Hints and Tips: Benefit from helpful hints and tips shared by the ApprentiCode community to overcome challenges and improve your skills.</li>
-    <li>Project Management: Keep your projects organized with customizable tags, reminders, and due dates.</li>
+    <li>ProjectInterface Management: Keep your projects organized with customizable tags, reminders, and due dates.</li>
     <li>Collaboration: Collaborate with team members in real-time on projects, share notes, and receive feedback to enhance your code.</li>
     <li>API Integration: Easily connect your ApprentiCode account with other tools and services using our REST API.</li>
 </ul>
