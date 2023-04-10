@@ -1,12 +1,18 @@
-<table class="table">
-  <thead>
-  <tr>
-    <th *ngFor="let columnLabel of columnLabels">{{ columnLabel }}</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr *ngFor="let row of data">
-    <td *ngFor="let column of columns">{{ row[column] | truncate: 20 }}</td>
-  </tr>
-  </tbody>
-</table>
+<div class="table-container">
+  <table mat-table [dataSource]="data">
+    <ng-container *ngFor="let column of columns; let i = index" matColumnDef="{{column}}">
+      <mat-header-cell *matHeaderCellDef> {{ columnLabels[i] }} </mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <ng-container *ngIf="getColumn(column); else defaultColumn">
+          {{ getColumn(column)?.formatFunction(element[column]) }}
+        </ng-container>
+        <ng-template #defaultColumn>
+          {{ element[column] }}
+        </ng-template>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="columns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: columns;"></mat-row>
+  </table>
+</div>

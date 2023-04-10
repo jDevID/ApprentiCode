@@ -1,0 +1,9 @@
+<div class="buttons-container">
+  <button
+    *ngFor="let button of buttons"
+    mat-raised-button
+    (click)="button.onClick()"
+  >
+    {{ button.label }}
+  </button>
+</div>

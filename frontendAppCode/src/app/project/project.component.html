@@ -1,33 +1,35 @@
-<input
-  matInput
-  [(ngModel)]="searchTerm"
-  placeholder="Search projects"
-/>
+<div class="project-container">
+  <h1>Projects</h1>
+
+  <div class="search-container">
+    <input
+      matInput
+      [(ngModel)]="searchTerm"
+      (input)="applyFilter()"
+      placeholder="Search projects"
+    />
+  </div>
+
+  <!-- | searchFilter: searchTerm: ['name', 'description']-->
+  <app-generic-table
+    *ngIf="!loading"
+   [data]="dataSource.data "
+    [columns]="['id', 'name', 'description', 'dateCreated']"
+    [columnLabels]="['ID', 'Name', 'Description', 'Date Created']"
+    [entityName]="'Project'"
+    [customTemplate]="dateCreatedTemplate"
+    (createEntity)="createEntity()"
+    (reloadEntity)="reloadProjects()"
+  ></app-generic-table>
 
 
+  <ng-template #dateCreatedTemplate let-project>
+    {{ project.dateCreated | date: 'd MMMM yyyy' }}
+  </ng-template>
 
-<app-generic-table
-  *ngIf="!loading"
-  [data]="dataSource.data | searchFilter: searchTerm: ['name', 'description']"
-  [columns]="['id', 'name', 'description', 'dateCreated']"
-  [columnLabels]="['ID', 'Name', 'Description', 'Date Created']"
-  [columnTemplates]="{ dateCreated: dateCreatedTemplate }"
-></app-generic-table>
 
-<ng-template #dateCreatedTemplate let-project>
-  {{ project.dateCreated | date: 'd MMMM yyyy' }}
-</ng-template>
+  <div *ngIf="loading">
+    <app-loading-spinner></app-loading-spinner>
+  </div>
 
-<button
-  mat-raised-button
-  color="primary"
-  appDebounceClick
-  (debounceClick)="reloadProjects()"
-  [debounceTime]="1000"
->
-  Reload Projects
-</button>
-
-<div *ngIf="loading">
-  <app-loading-spinner></app-loading-spinner>
 </div>

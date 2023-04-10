@@ -6,7 +6,6 @@ import backend.mapper.BaseMapper;
 import backend.service.EntryService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class EntryController extends BaseController<Entry, EntryDto, Long> {
 
     @Autowired
-    public EntryController(EntryService service, @Qualifier("entryMapper") BaseMapper<EntryDto, Entry> entryMapper) {
+    public EntryController(EntryService service, BaseMapper<EntryDto, Entry> entryMapper) {
         super(service, entryMapper);
     }
     /*
@@ -31,8 +30,8 @@ public class EntryController extends BaseController<Entry, EntryDto, Long> {
     GET /api/v1/entries/search?filter=active:true&page=0&size=10&sort=id,asc
     GET /api/v1/entries/search?filter=projectId:1&page=0&size=10&sort=id,asc
      */
-    @GetMapping("/search")
-    public ResponseEntity<Page<EntryDto>> search(@RequestParam(value = "filter", required = false) String filter,
+    @GetMapping("/search/simple")
+    public ResponseEntity<Page<EntryDto>> searchEntries(@RequestParam(value = "filter", required = false) String filter,
                                                             @RequestParam(value = "tagName", required = false) String tagName,
                                                             @RequestParam(value = "complexityName", required = false) String complexityName,
                                                             @RequestParam(value = "command", required = false) String command,

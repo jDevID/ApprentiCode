@@ -9,6 +9,7 @@ import backend.service.BaseService;
 import backend.util.ResponseUtil;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -32,16 +33,11 @@ import java.util.Map;
 *    delete - Delete an entity by its ID.
 *    getAll - Fetch all entities.
  */
-@RestController
-@RequestMapping(path="/api/v1")
+@RequiredArgsConstructor
 public abstract class BaseController<T, DTO, ID extends Serializable> {
     protected final BaseService<T, DTO, ID> service;
     protected final BaseMapper<DTO, T> mapper;
 
-    public BaseController(BaseService<T, DTO, ID> service, BaseMapper<DTO, T> mapper) {
-        this.service = service;
-        this.mapper = mapper;
-    }
 
     @GetMapping("/")
     public ResponseEntity<Page<DTO>> getAll(

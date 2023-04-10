@@ -1,25 +1,23 @@
 <mat-toolbar color="primary">
-  <span>My App</span>
+  <span>Apprenti Code</span>
   <span class="spacer"></span>
-
-  <mat-form-field class="search-bar">
-    <input matInput [(ngModel)]="searchQuery" (keyup.enter)="search()" placeholder="Search" appAutofocus>
-  </mat-form-field>
-
-  <button mat-icon-button aria-label="Clear search" *ngIf="searchQuery" (click)="clearSearch()">
-    <mat-icon>close</mat-icon>
-  </button>
-
+  <app-paginator class="blue-opacity" [dataSource]="dataSource"></app-paginator>
 </mat-toolbar>
-<mat-sidenav-container>
-  <mat-sidenav mode="side" opened class="sidebar">
-    <a routerLink="/projects" routerLinkActive="active" mat-raised-button color="primary">Projects</a>
-    <!--    <a routerLink="/sublink1" routerLinkActive="active" mat-raised-button color="primary">Sublink 1</a>-->
-    <!--    <a routerLink="/sublink2" routerLinkActive="active" mat-raised-button color="primary">Sublink 2</a>-->
-    <!--    <a routerLink="/sublink3" routerLinkActive="active" mat-raised-button color="primary">Sublink 3</a>-->
+
+<mat-sidenav-container class="container-base">
+  <mat-sidenav mode="side" opened>
+    <app-navigation></app-navigation>
   </mat-sidenav>
+
+
+
   <mat-sidenav-content>
     <div class="content">
+      <router-outlet></router-outlet>
     </div>
   </mat-sidenav-content>
+
 </mat-sidenav-container>
+
+<app-action-buttons [buttons]="buttons"></app-action-buttons>
+

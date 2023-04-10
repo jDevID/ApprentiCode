@@ -1,0 +1,19 @@
+.project-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.search-container {
+  margin-bottom: 20px;
+}
+
+.project-container {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+
+.buttons-container {
+  margin-top: 20px;
+}

@@ -7,11 +7,10 @@ import { SharedModule } from './shared/shared.module';
 import { CoreModule } from './core/core.module';
 import { ProjectComponent } from './project/project.component';
 import { ComplexityComponent } from './complexity/complexity.component';
-
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
-import { HttpClientModule } from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {LayoutComponent} from "./layout/layout.component";
 import {MatButtonModule} from "@angular/material/button";
 import {MatToolbarModule} from '@angular/material/toolbar';
@@ -20,6 +19,8 @@ import {FormsModule} from "@angular/forms";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import {MatIconModule} from "@angular/material/icon";
+import { ErrorInterceptor } from './shared/interceptor/error.interceptor';
+
 
 @NgModule({
   declarations: [
@@ -29,8 +30,8 @@ import {MatIconModule} from "@angular/material/icon";
     ComplexityComponent,
   ],
   imports: [
-    BrowserModule,
     AppRoutingModule,
+    BrowserModule,
     SharedModule,
     CoreModule,
     BrowserAnimationsModule,
@@ -44,9 +45,12 @@ import {MatIconModule} from "@angular/material/icon";
     FormsModule,
     MatFormFieldModule,
     MatInputModule,
-    MatIconModule
+    MatIconModule,
   ],
-  providers: [AppComponent],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    AppComponent,
+  ],
   exports: [
     LayoutComponent
   ],

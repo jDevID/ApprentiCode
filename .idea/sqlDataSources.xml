@@ -2,7 +2,10 @@
 <project version="4">
   <component name="DdlMappings">
     <mapping uuid="58c72781-0f4d-4553-9700-0b9068f35f8a" name="DDL Mapping">
-      <data-sources db="d15d4f2d-a08b-4d62-9463-0d64aacec739" ddl="90f4f426-4bc7-4081-9776-5ad4590908f5" />
+      <data-sources db="433fbe8e-4066-4f50-9cbd-ddf253170ecf" ddl="90f4f426-4bc7-4081-9776-5ad4590908f5" />
+      <scope>
+        <node kind="database" qname="labo_tic" />
+      </scope>
     </mapping>
   </component>
   <component name="SqlDataSourceStorage">

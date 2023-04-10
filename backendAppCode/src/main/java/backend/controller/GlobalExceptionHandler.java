@@ -1,6 +1,8 @@
-package backend.exception;
+package backend.controller;
 
 import backend.domain.dto.ResponseDto;
+import backend.exception.EntityDeleteException;
+import backend.exception.EntityOperationException;
 import backend.util.ResponseUtil;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -64,16 +66,6 @@ public class GlobalExceptionHandler<DTO> {
 
         ResponseDto<Optional<DTO>> responseDto = ResponseUtil.buildResponse(LocalDateTime.now(), HttpStatus.BAD_REQUEST, e.getMessage(), null, Optional.empty());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseDto);
-    }
-
-    @ExceptionHandler(value = {jakarta.servlet.ServletException.class})
-    public ResponseEntity<ResponseDto<Optional<DTO>>> handleHttpRequestMethodNotSupportedException(
-            jakarta.servlet.ServletException e, HttpServletRequest request) {
-        log.warn("HTTP method not supported: {}", request);
-
-        ResponseDto<Optional<DTO>> responseDto = ResponseUtil.buildResponse(LocalDateTime.now(), HttpStatus.METHOD_NOT_ALLOWED,
-                e.getMessage(), null, Optional.empty());
-        return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED).body(responseDto);
     }
 
     @ExceptionHandler(value = {jakarta.servlet.ServletException.class})

@@ -35,8 +35,6 @@ spring:
 server:
   error:
     include-message: always
-  servlet:
-    context-path: /api
 logging:
   level:
     root: warn

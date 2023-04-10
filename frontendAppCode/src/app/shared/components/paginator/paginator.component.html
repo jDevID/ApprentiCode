@@ -1,0 +1,9 @@
+<div class="paginator-container" *ngIf="dataSource">
+  <mat-paginator
+    [length]="dataSource.data.length"
+    [pageSize]="dataSource.paginator?.pageSize"
+    [pageIndex]="dataSource.paginator?.pageIndex"
+    (page)="pageEvent.emit($event)"
+  ></mat-paginator>
+</div>
+

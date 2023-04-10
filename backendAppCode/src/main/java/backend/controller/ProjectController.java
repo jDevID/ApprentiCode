@@ -24,6 +24,7 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @RestController
+@CrossOrigin
 @RequestMapping(path = "/projects")
 public class ProjectController extends BaseController<Project, ProjectDto, Long> {
     private final ProjectServiceImpl projectService;

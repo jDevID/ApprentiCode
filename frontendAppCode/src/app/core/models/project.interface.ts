@@ -6,5 +6,5 @@ export interface Project extends BaseEntity {
   name: string;
   description: string;
   complexities: Complexity[];
-  user: User;
+  user: User | undefined;
 }

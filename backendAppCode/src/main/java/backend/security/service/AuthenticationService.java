@@ -1,6 +1,7 @@
 package backend.security.service;
 
 import backend.domain.entity.User;
+import backend.repository.UserRepository;
 import backend.security.config.jwt.JwtService;
 import backend.security.domain.entity.RefreshToken;
 import backend.security.domain.entity.Role;
@@ -8,7 +9,6 @@ import backend.security.domain.request.AuthenticationRequest;
 import backend.security.domain.request.RegisterRequest;
 import backend.security.domain.response.AuthenticationResponse;
 import backend.security.repository.RefreshTokenRepository;
-import backend.security.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;

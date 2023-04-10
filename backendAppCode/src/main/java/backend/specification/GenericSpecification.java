@@ -61,8 +61,5 @@ public class GenericSpecification<T> implements Specification<T> {
         return builder.and(predicates.toArray(new Predicate[0]));
     }
 
-    @Override
-    public javax.persistence.criteria.Predicate toPredicate(javax.persistence.criteria.Root<T> root, javax.persistence.criteria.CriteriaQuery<?> query, javax.persistence.criteria.CriteriaBuilder criteriaBuilder) {
-        return null;
-    }
+
 }

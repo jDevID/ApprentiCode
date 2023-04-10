@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {Project} from "../models/project.interface";
-import {Observable} from "rxjs";
+import {Observable, of} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +13,9 @@ export class ProjectService {
   }
 
   getAllProjects(): Observable<Project[]> {
-    return this.http.get<Project[]>(this.apiUrl);
+    // return this.http.get<Project[]>(this.apiUrl);
+    const project: Project = {name:'Projet1', description:'dadea ', complexities:[], id:1 , user:undefined, active: true, dateCreated: new Date(), lastUpdated: new Date()}
+    return of<Project[]>([project]);
   }
 
   addProject(project: Project): Observable<Project> {
